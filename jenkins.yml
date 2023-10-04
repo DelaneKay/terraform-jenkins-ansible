@@ -1,0 +1,54 @@
+jenkins:
+  systemMessage: "Jenkins Configuration as Code with Terraform pipeline"
+  numExecutors: 2
+  scmCheckoutRetryCount: 2
+  jobs:
+    - script: >
+        pipelineJob('Terraform-Pipeline') {
+          definition {
+            cps {
+              script("""\
+                pipeline {
+                  agent any
+
+                  stages {
+                    stage('Initialize Terraform') {
+                      steps {
+                        script {
+                          dir("/mnt/c/Users/Nomsa/Desktop/Terraform_skills/Terraform_Ansible_2/") {
+                            sh "terraform init"
+                          }
+                        }
+                      }
+                    }
+
+                    stage('Terraform Plan') {
+                      steps {
+                        script {
+                          dir("/mnt/c/Users/Nomsa/Desktop/Terraform_skills/Terraform_Ansible_2/") {
+                            sh "terraform plan"
+                          }
+                        }
+                      }
+                    }
+
+                    stage('Terraform Apply') {
+                      when {
+                        // Define conditions for applying (e.g., manual approval, etc.)
+                        always()
+                      }
+                      steps {
+                        script {
+                          dir("/mnt/c/Users/Nomsa/Desktop/Terraform_skills/Terraform_Ansible_2/") {
+                            sh "terraform apply -auto-approve"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                """)
+              sandbox()
+            }
+          }
+        }
