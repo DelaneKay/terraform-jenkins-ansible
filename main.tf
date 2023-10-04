@@ -120,7 +120,6 @@ resource "aws_instance" "terraform-ansible" {
  provisioner "remote-exec" {
     inline = [
       "echo 'Wait until SSH is ready'"
-      "mkdir ansible_repo"
       "git clone YOUR_GITHUB_REPO_URL ~/ansible_repo",  # Clone your GitHub repository containing the playbook
       "ansible-playbook ~/ansible_repo/setup_ec2-playbook.yaml",  # Execute the playbook    
     ]
