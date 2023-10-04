@@ -117,25 +117,6 @@ resource "aws_instance" "terraform-ansible" {
 
 
 
- provisioner "remote-exec" {
-    inline = [
-      "echo 'Wait until SSH is ready'",
-      "git clone https://github.com/DelaneKay/terraform-ansible ~/ansible_repo",  # Clone your GitHub repository containing the playbook
-      "ansible-playbook ~/ansible_repo/setup_ec2-playbook.yaml",  # Execute the playbook    
-    ]
-
-    connection {
-      type        = "ssh"
-      user        = local.ssh_user
-      private_key = file(local.private_key_path)
-      host        = aws_instance.terraform-ansible.public_ip
-    }
-  }
-  
-}
-
-output "terraform-ansible_ip" {
-  value = aws_instance.terraform-ansible.public_ip
-}
+ 
 
 
