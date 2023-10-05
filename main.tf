@@ -125,7 +125,7 @@ resource "aws_instance" "terraform-ansible" {
  tags = {
 	 Name = "Terraform-Ansible"
  }
-
+}
 
 output "terraform-ansible_ip" {
   value = aws_instance.terraform-ansible.public_ip
