@@ -111,11 +111,25 @@ resource "aws_instance" "terraform-ansible" {
  vpc_security_group_ids = ["${aws_security_group.terraform-ansible_webserver_sg.id}"]
  availability_zone = "${var.az}"
  key_name = "AWSDevOps"
+
+# User data script to install Ansible
+  user_data = <<-EOT
+              #!/bin/bash
+              sudo apt-get update -y
+              sudo apt-get install software-properties-common -y
+              sudo apt-add-repository ppa:ansible/ansible -y
+              sudo apt-get update -y
+              sudo apt-get install ansible -y
+              EOT
+
  tags = {
 	 Name = "Terraform-Ansible"
  }
 
 
+output "terraform-ansible_ip" {
+  value = aws_instance.terraform-ansible.public_ip
+}
 
  
 

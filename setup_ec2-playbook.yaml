@@ -3,6 +3,11 @@
   user: ubuntu
   become: yes  # this is to run tasks as sudo
   tasks:
+    - name: Ensure curl and ufw are installed
+      apt:
+        name: ['curl', 'ufw']
+        state: present
+
     - name: Update and upgrade apt packages
       apt:
         upgrade: yes
