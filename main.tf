@@ -111,26 +111,29 @@ resource "aws_instance" "terraform-ansible" {
  vpc_security_group_ids = ["${aws_security_group.terraform-ansible_webserver_sg.id}"]
  availability_zone = "${var.az}"
  key_name = "AWSDevOps"
-
-# User data script to install Ansible
-  user_data = <<-EOT
-              #!/bin/bash
-              sudo apt-get update -y
-              sudo apt-get install software-properties-common -y
-              sudo apt-add-repository ppa:ansible/ansible -y
-              sudo apt-get update -y
-              sudo apt-get install ansible -y
-              EOT
-
  tags = {
 	 Name = "Terraform-Ansible"
  }
+
+
+
+ provisioner "remote-exec" {
+    inline = ["echo 'Wait until SSH is ready'"]
+
+    connection {
+      type        = "ssh"
+      user        = local.ssh_user
+      private_key = file(local.private_key_path)
+      host        = aws_instance.terraform-ansible.public_ip
+    }
+  }
+  provisioner "local-exec" {
+    command = "ansible-playbook  -i ${aws_instance.terraform-ansible.public_ip}, --private-key ${local.private_key_path} setup_ec2-playbook.yaml"
+  }
 }
 
 output "terraform-ansible_ip" {
   value = aws_instance.terraform-ansible.public_ip
 }
-
- 
 
 
