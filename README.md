@@ -1,4 +1,4 @@
-# Deploying Project with Jenkins, Terraform, and Docker on AWS
+# Deploying Project with Jenkins, Terraform, and Ansible on AWS
 
 This guide outlines the steps to deploy a project containing a Jenkinsfile, Terraform configuration, and Ansible playbook on AWS using Terraform and Docker.
 
@@ -16,9 +16,14 @@ This guide outlines the steps to deploy a project containing a Jenkinsfile, Terr
 ## Step 2: Configure Terraform
 Create a file named `main.tf` with the provided Terraform configuration as in the script above.
 
-## Step 3: Initialize Terraform
-Run the following commands to initialize `Terraform`:
+## Step 3: Run Ansible Playbook
+After Terraform applies the changes, obtain the public IP address of the EC2 instance and SSH into it:
 ```js
-terraform init
+ssh -i /path/to/your/private-key.pem ubuntu@<instance-public-ip>
+```
 
+Run the Ansible playbook:
 
+```js
+ansible-playbook -i inventory playbook.yaml
+```
