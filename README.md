@@ -1,6 +1,6 @@
 # Deploying Project with Jenkins, Terraform, and Ansible on AWS
 
-This guide outlines the steps to deploy a project containing a Jenkinsfile, Terraform configuration, and Ansible playbook on AWS using Terraform and Docker.
+This guide outlines the steps to deploy a project containing a Jenkinsfile, Terraform configuration, and Ansible playbook on AWS using Terraform, Jenkins and Ansible.
 
 ## Prerequisites
 + `Jenkins` installed and configured
