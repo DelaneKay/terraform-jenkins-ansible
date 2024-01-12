@@ -5,7 +5,6 @@ This guide outlines the steps to deploy a project containing a Jenkinsfile, Terr
 ## Prerequisites
 + `Jenkins` installed and configured
 + `Node.js` installed
-+ `Docker` installed
 + `Terraform` installed
 + AWS account with appropriate permissions
 
