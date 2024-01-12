@@ -27,3 +27,9 @@ Run the Ansible playbook:
 ```js
 ansible-playbook -i inventory playbook.yaml
 ```
+
+## Step 4: Access the Deployed App
+Visit your AWS EC2 instance's public IP address in a web browser to access the deployed application.
+```js
+http://<AWS_EC2_Public_IP>
+```
